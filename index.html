@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>신사임당 | 포트폴리오</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0f1117;
+      --surface:   #1a1d27;
+      --border:    #2a2d3a;
+      --accent:    #6c63ff;
+      --accent-h:  #847dff;
+      --text:      #e2e4f0;
+      --muted:     #8b8fa8;
+      --radius:    12px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Layout helper ── */
+    .container {
+      width: min(1100px, 100% - 2rem);
+      margin-inline: auto;
+    }
+
+    section { padding: 80px 0; }
+
+    .section-title {
+      font-size: clamp(1.4rem, 3vw, 1.9rem);
+      font-weight: 700;
+      margin-bottom: 2.5rem;
+      position: relative;
+      display: inline-block;
+    }
+    .section-title::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: -6px;
+      width: 40px; height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    /* ── Header / Nav ── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15, 17, 23, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 0;
+    }
+
+    .nav-logo {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: -0.5px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.9rem;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ── Hero ── */
+    #hero {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 110px 0 90px;
+      gap: 1.5rem;
+    }
+
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent) 0%, #a78bfa 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.8rem;
+      flex-shrink: 0;
+      box-shadow: 0 0 0 4px var(--bg), 0 0 0 6px var(--accent);
+    }
+
+    .hero-name {
+      font-size: clamp(2rem, 6vw, 3.4rem);
+      font-weight: 800;
+      letter-spacing: -1px;
+      line-height: 1.15;
+    }
+
+    .hero-name span { color: var(--accent); }
+
+    .hero-tagline {
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      color: var(--muted);
+      max-width: 480px;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 0.5rem;
+    }
+
+    .btn {
+      padding: 0.65rem 1.6rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(108, 99, 255, 0.4);
+    }
+    .btn-primary:hover { background: var(--accent-h); }
+
+    .btn-outline {
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: transparent;
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── Skills ── */
+    #skills { background: var(--surface); }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .badge {
+      padding: 0.45rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text);
+      background: var(--bg);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .badge:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── Projects ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+    }
+
+    .card-tag {
+      font-size: 0.75rem;
+      color: var(--accent);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      flex: 1;
+    }
+
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-top: 0.5rem;
+      transition: gap 0.2s;
+    }
+    .card-link:hover { gap: 0.6rem; }
+    .card-link::after { content: '→'; }
+
+    /* ── Contact / Footer ── */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 60px 0 40px;
+      text-align: center;
+    }
+
+    footer .section-title { display: block; text-align: left; }
+
+    .contact-links {
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      margin-top: 1.75rem;
+      justify-content: center;
+    }
+
+    .contact-chip {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.4rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .contact-chip:hover { border-color: var(--accent); color: var(--accent); }
+
+    .contact-icon {
+      font-size: 1.1rem;
+      line-height: 1;
+    }
+
+    .footer-copy {
+      margin-top: 3rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* ── Contact Form ── */
+    .contact-form {
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      text-align: left;
+      max-width: 560px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 0.03em;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.65rem 0.9rem;
+      color: var(--text);
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+      width: 100%;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.15);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: var(--muted);
+      opacity: 0.6;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .projects-grid { grid-template-columns: 1fr; }
+      #hero { padding: 70px 0 60px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Header ── -->
+  <header>
+    <nav class="container">
+      <span class="nav-logo">신사임당.dev</span>
+      <ul class="nav-links">
+        <li><a href="#skills">기술 스택</a></li>
+        <li><a href="#projects">프로젝트</a></li>
+        <li><a href="#contact">연락처</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ── Hero ── -->
+  <section id="hero">
+    <div class="avatar">👤</div>
+    <h1 class="hero-name">안녕하세요,<br /><span>신사임당</span>입니다.</h1>
+    <p class="hero-tagline">풀스택 개발자 · 코드로 문제를 풉니다</p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">프로젝트 보기</a>
+      <a href="#contact" class="btn btn-outline">연락하기</a>
+    </div>
+  </section>
+
+  <!-- ── Skills ── -->
+  <section id="skills">
+    <div class="container">
+      <h2 class="section-title">기술 스택</h2>
+      <div class="badges">
+        <span class="badge">HTML / CSS</span>
+        <span class="badge">JavaScript</span>
+        <span class="badge">Python</span>
+        <span class="badge">React</span>
+        <span class="badge">Git</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Projects ── -->
+  <section id="projects">
+    <div class="container">
+      <h2 class="section-title">프로젝트</h2>
+      <div class="projects-grid">
+
+        <div class="card">
+          <span class="card-tag">Web App</span>
+          <h3>할 일 관리 앱</h3>
+          <p>React와 LocalStorage를 활용해 만든 투두 앱. 드래그 앤 드롭으로 순서를 변경할 수 있습니다.</p>
+          <a href="#" class="card-link">GitHub 보기</a>
+        </div>
+
+        <div class="card">
+          <span class="card-tag">API</span>
+          <h3>날씨 대시보드</h3>
+          <p>OpenWeather API를 연동해 현재 위치 기반 날씨 정보를 시각화한 웹 서비스입니다.</p>
+          <a href="#" class="card-link">GitHub 보기</a>
+        </div>
+
+        <div class="card">
+          <span class="card-tag">Automation</span>
+          <h3>크롤링 파이프라인</h3>
+          <p>Python + BeautifulSoup으로 뉴스를 수집하고 CSV로 저장하는 자동화 스크립트입니다.</p>
+          <a href="#" class="card-link">GitHub 보기</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Contact / Footer ── -->
+  <footer id="contact">
+    <div class="container">
+      <h2 class="section-title" style="display:inline-block;">연락처</h2>
+      <p style="color:var(--muted); margin-top:1rem;">
+        새로운 기회나 협업 제안은 언제든 환영합니다.
+      </p>
+      <div class="contact-links">
+        <a href="mailto:hong@example.com" class="contact-chip">
+          <span class="contact-icon">✉</span>
+          hong@example.com
+        </a>
+        <a href="https://github.com/hong" target="_blank" rel="noopener" class="contact-chip">
+          <span class="contact-icon">⌥</span>
+          github.com/hong
+        </a>
+      </div>
+      <form
+        class="contact-form"
+        action="mailto:hong@example.com"
+        method="post"
+        enctype="text/plain"
+      >
+        <div class="form-group">
+          <label for="name">이름</label>
+          <input type="text" id="name" name="이름" placeholder="신사임당" required />
+        </div>
+        <div class="form-group">
+          <label for="email">이메일</label>
+          <input type="email" id="email" name="이메일" placeholder="you@example.com" required />
+        </div>
+        <div class="form-group">
+          <label for="message">메시지</label>
+          <textarea id="message" name="메시지" placeholder="안녕하세요, 협업 제안이 있습니다..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="align-self:flex-start;">문의 보내기</button>
+      </form>
+
+      <p class="footer-copy">© 2026 신사임당. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
