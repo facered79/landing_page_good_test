@@ -5,43 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>신사임당 | 포트폴리오</title>
   <style>
-    /* ── Reset & Base ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:        #0f1117;
-      --surface:   #1a1d27;
-      --border:    #2a2d3a;
-      --accent:    #6c63ff;
-      --accent-h:  #847dff;
-      --text:      #e2e4f0;
-      --muted:     #8b8fa8;
-      --radius:    12px;
+      --bg:       #0f1117;
+      --surface:  #1a1d27;
+      --surface2: #22263a;
+      --border:   #2a2d3a;
+      --accent:   #6c63ff;
+      --accent-h: #847dff;
+      --green:    #10b981;
+      --pink:     #f472b6;
+      --yellow:   #fbbf24;
+      --text:     #e2e4f0;
+      --muted:    #8b8fa8;
+      --radius:   12px;
     }
 
     html { scroll-behavior: smooth; }
-
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-family: 'Segoe UI', system-ui, sans-serif;
       font-size: 16px;
       line-height: 1.6;
+      overflow-x: hidden;
     }
-
     a { color: inherit; text-decoration: none; }
-
-    /* ── Layout helper ── */
-    .container {
-      width: min(1100px, 100% - 2rem);
-      margin-inline: auto;
-    }
-
-    section { padding: 80px 0; }
+    .container { width: min(1100px, 100% - 2rem); margin-inline: auto; }
+    section { padding: 90px 0; }
 
     .section-title {
-      font-size: clamp(1.4rem, 3vw, 1.9rem);
-      font-weight: 700;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 800;
       margin-bottom: 2.5rem;
       position: relative;
       display: inline-block;
@@ -49,394 +45,656 @@
     .section-title::after {
       content: '';
       position: absolute;
-      left: 0; bottom: -6px;
-      width: 40px; height: 3px;
-      background: var(--accent);
+      left: 0; bottom: -8px;
+      width: 48px; height: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--pink));
       border-radius: 2px;
     }
 
-    /* ── Header / Nav ── */
+    /* ── Header ── */
     header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(15, 17, 23, 0.85);
-      backdrop-filter: blur(12px);
+      position: sticky; top: 0; z-index: 200;
+      background: rgba(15,17,23,0.88);
+      backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
     }
-
     nav {
-      display: flex;
-      align-items: center;
+      display: flex; align-items: center;
       justify-content: space-between;
       padding: 1rem 0;
     }
-
     .nav-logo {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--accent);
-      letter-spacing: -0.5px;
+      font-size: 1.15rem; font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--pink));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-size: 0.9rem;
-      color: var(--muted);
-      transition: color 0.2s;
-    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: 0.88rem; color: var(--muted); transition: color .2s; }
     .nav-links a:hover { color: var(--text); }
 
     /* ── Hero ── */
     #hero {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      text-align: center;
-      padding: 110px 0 90px;
+      min-height: 92vh;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; text-align: center;
+      padding: 80px 1rem;
       gap: 1.5rem;
+      position: relative;
+      overflow: hidden;
     }
+    #hero-canvas {
+      position: absolute; inset: 0;
+      pointer-events: none; z-index: 0;
+    }
+    #hero > * { position: relative; z-index: 1; }
 
     .avatar {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent) 0%, #a78bfa 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.8rem;
-      flex-shrink: 0;
-      box-shadow: 0 0 0 4px var(--bg), 0 0 0 6px var(--accent);
+      width: 130px; height: 130px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--pink));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem; flex-shrink: 0;
+      box-shadow: 0 0 0 5px var(--bg), 0 0 0 8px var(--accent), 0 0 40px rgba(108,99,255,.4);
+      animation: float 4s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-12px); }
     }
 
     .hero-name {
-      font-size: clamp(2rem, 6vw, 3.4rem);
-      font-weight: 800;
-      letter-spacing: -1px;
-      line-height: 1.15;
+      font-size: clamp(2.4rem, 7vw, 4rem);
+      font-weight: 900; letter-spacing: -2px; line-height: 1.1;
+    }
+    .hero-name .gradient {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--pink) 50%, var(--yellow) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-size: 200%;
+      animation: shimmer 4s linear infinite;
+    }
+    @keyframes shimmer {
+      0%   { background-position: 0% center; }
+      100% { background-position: 200% center; }
     }
 
-    .hero-name span { color: var(--accent); }
+    .hero-tagline { font-size: clamp(1rem, 2.5vw, 1.25rem); color: var(--muted); max-width: 520px; }
+    .typewriter::after { content: '|'; animation: blink .8s step-end infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
 
-    .hero-tagline {
-      font-size: clamp(1rem, 2.5vw, 1.2rem);
-      color: var(--muted);
-      max-width: 480px;
-    }
-
-    .hero-cta {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 0.5rem;
-    }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-top: .5rem; }
 
     .btn {
-      padding: 0.65rem 1.6rem;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: transform 0.15s, box-shadow 0.15s;
+      padding: .7rem 1.8rem; border-radius: 8px;
+      font-size: .9rem; font-weight: 700;
+      cursor: pointer; transition: transform .15s, box-shadow .15s;
+      border: none; display: inline-flex; align-items: center; gap: .4rem;
     }
     .btn:hover { transform: translateY(-2px); }
-
     .btn-primary {
-      background: var(--accent);
+      background: linear-gradient(135deg, var(--accent), var(--pink));
       color: #fff;
-      box-shadow: 0 4px 16px rgba(108, 99, 255, 0.4);
+      box-shadow: 0 4px 20px rgba(108,99,255,.45);
     }
-    .btn-primary:hover { background: var(--accent-h); }
-
     .btn-outline {
-      border: 1px solid var(--border);
-      color: var(--text);
-      background: transparent;
+      border: 1.5px solid var(--border); color: var(--text); background: transparent;
     }
     .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
 
+    /* ── Stats ── */
+    #stats { background: var(--surface); padding: 50px 0; }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 2rem; text-align: center;
+    }
+    .stat-num {
+      font-size: 2.5rem; font-weight: 900;
+      background: linear-gradient(135deg, var(--accent), var(--pink));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .stat-label { font-size: .85rem; color: var(--muted); margin-top: .25rem; }
+
+    /* ── About ── */
+    #about .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+    }
+    .about-text p { color: var(--muted); margin-bottom: 1rem; }
+    .about-img {
+      border-radius: var(--radius);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 8rem; height: 280px;
+      position: relative; overflow: hidden;
+    }
+    .about-img::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(108,99,255,.15), rgba(244,114,182,.15));
+    }
+    .tag-list { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+    .tag {
+      padding: .3rem .8rem; border-radius: 999px; font-size: .8rem; font-weight: 600;
+      background: rgba(108,99,255,.15); color: var(--accent); border: 1px solid rgba(108,99,255,.3);
+    }
+
     /* ── Skills ── */
     #skills { background: var(--surface); }
-
-    .badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
+    .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem 3rem; }
+    .skill-item { display: flex; flex-direction: column; gap: .4rem; }
+    .skill-header { display: flex; justify-content: space-between; font-size: .88rem; font-weight: 600; }
+    .skill-bar { height: 8px; background: var(--border); border-radius: 999px; overflow: hidden; }
+    .skill-fill {
+      height: 100%; border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent), var(--pink));
+      width: 0;
+      transition: width 1.2s cubic-bezier(.4,0,.2,1);
     }
-
+    .badge-grid { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 2.5rem; }
     .badge {
-      padding: 0.45rem 1.1rem;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      font-size: 0.88rem;
-      font-weight: 500;
-      color: var(--text);
-      background: var(--bg);
-      transition: border-color 0.2s, color 0.2s;
+      padding: .4rem 1rem; border: 1px solid var(--border); border-radius: 999px;
+      font-size: .85rem; font-weight: 500; cursor: default;
+      transition: border-color .2s, color .2s, background .2s;
     }
-    .badge:hover { border-color: var(--accent); color: var(--accent); }
+    .badge:hover { border-color: var(--accent); color: var(--accent); background: rgba(108,99,255,.08); }
+
+    /* ── Timeline ── */
+    #timeline { }
+    .tl { position: relative; padding-left: 2rem; }
+    .tl::before { content: ''; position: absolute; left: 7px; top: 0; bottom: 0; width: 2px; background: var(--border); }
+    .tl-item { position: relative; margin-bottom: 2rem; }
+    .tl-dot {
+      position: absolute; left: -2rem; top: 4px;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--pink));
+      box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--accent);
+    }
+    .tl-year { font-size: .8rem; color: var(--accent); font-weight: 700; margin-bottom: .2rem; }
+    .tl-title { font-size: 1rem; font-weight: 700; }
+    .tl-sub { font-size: .85rem; color: var(--muted); }
 
     /* ── Projects ── */
+    #projects { background: var(--surface); }
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
       gap: 1.5rem;
     }
-
     .card {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.75rem;
+      display: flex; flex-direction: column; gap: .75rem;
+      transition: border-color .2s, transform .2s, box-shadow .2s;
+      position: relative; overflow: hidden;
+    }
+    .card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--pink));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .3s;
+    }
+    .card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: 0 12px 40px rgba(108,99,255,.2); }
+    .card:hover::before { transform: scaleX(1); }
+    .card-icon { font-size: 2rem; }
+    .card-tag { font-size: .72rem; color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+    .card h3 { font-size: 1.1rem; font-weight: 700; }
+    .card p { font-size: .88rem; color: var(--muted); flex: 1; }
+    .card-techs { display: flex; gap: .4rem; flex-wrap: wrap; }
+    .card-tech { padding: .2rem .6rem; border-radius: 4px; font-size: .75rem; font-weight: 600; background: rgba(108,99,255,.12); color: var(--accent); }
+    .card-link { display: inline-flex; align-items: center; gap: .35rem; font-size: .85rem; font-weight: 700; color: var(--accent); margin-top: .5rem; transition: gap .2s; }
+    .card-link:hover { gap: .6rem; }
+    .card-link::after { content: '→'; }
+
+    /* ── Boggle ── */
+    #boggle { }
+    .boggle-wrapper {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    .boggle-left { display: flex; flex-direction: column; gap: 1rem; }
+
+    .boggle-header {
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: .8rem 1.2rem;
+      gap: 1.5rem; flex-wrap: wrap;
+    }
+    .boggle-stat { text-align: center; }
+    .boggle-stat-val { font-size: 1.6rem; font-weight: 900; color: var(--accent); line-height: 1; }
+    .boggle-stat-lbl { font-size: .72rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
+
+    #boggle-timer { color: var(--yellow); }
+    #boggle-timer.danger { color: #ef4444; animation: pulse .6s ease-in-out infinite; }
+    @keyframes pulse { 50% { opacity: .5; } }
+
+    .boggle-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: .5rem;
+    }
+    .boggle-cell {
+      width: 72px; height: 72px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; font-weight: 900;
+      background: var(--surface2); border: 2px solid var(--border);
+      border-radius: 10px; cursor: pointer;
+      user-select: none;
+      transition: border-color .15s, background .15s, transform .1s;
+      text-transform: uppercase;
+    }
+    .boggle-cell:hover { border-color: var(--accent); background: rgba(108,99,255,.1); }
+    .boggle-cell.selected {
+      border-color: var(--accent); background: rgba(108,99,255,.25);
+      transform: scale(1.08);
+    }
+    .boggle-cell.path { border-color: var(--pink); background: rgba(244,114,182,.15); }
+    .boggle-cell.found-flash {
+      border-color: var(--green); background: rgba(16,185,129,.25);
+      animation: flash .5s ease;
+    }
+    @keyframes flash { 0%,100% { transform: scale(1); } 50% { transform: scale(1.12); } }
+
+    .boggle-input-row { display: flex; gap: .5rem; }
+    #boggle-word-display {
+      flex: 1; padding: .65rem 1rem;
+      background: var(--surface); border: 2px solid var(--border);
+      border-radius: 8px; font-size: 1.1rem; font-weight: 700;
+      color: var(--text); letter-spacing: .15em; text-transform: uppercase;
+      min-height: 46px; display: flex; align-items: center;
+      transition: border-color .2s;
+    }
+    #boggle-word-display.valid { border-color: var(--green); color: var(--green); }
+    #boggle-word-display.invalid { border-color: #ef4444; color: #ef4444; }
+
+    .btn-boggle {
+      padding: .6rem 1.2rem; border-radius: 8px; font-size: .85rem; font-weight: 700;
+      cursor: pointer; border: none; transition: transform .1s, opacity .2s;
+    }
+    .btn-boggle:hover { transform: translateY(-1px); }
+    #btn-submit { background: var(--green); color: #fff; }
+    #btn-clear   { background: var(--surface2); color: var(--muted); border: 1px solid var(--border); }
+    #btn-new     { background: linear-gradient(135deg,var(--accent),var(--pink)); color: #fff; }
+
+    .boggle-msg {
+      font-size: .85rem; font-weight: 600; min-height: 1.4em;
+      transition: color .2s;
+    }
+
+    /* Right panel */
+    .boggle-right {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 1.75rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      transition: border-color 0.2s, transform 0.2s;
+      padding: 1.25rem;
+      min-height: 360px;
     }
-    .card:hover {
-      border-color: var(--accent);
-      transform: translateY(-4px);
+    .boggle-right h3 { font-size: .9rem; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 1rem; }
+    #found-list { display: flex; flex-direction: column; gap: .4rem; max-height: 380px; overflow-y: auto; }
+    .found-word {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: .35rem .6rem; border-radius: 6px;
+      background: rgba(16,185,129,.1); border: 1px solid rgba(16,185,129,.2);
+      font-size: .88rem; font-weight: 600; color: var(--green);
+      animation: slideIn .3s ease;
     }
+    @keyframes slideIn { from { opacity: 0; transform: translateX(-10px); } }
+    .found-word .pts { font-size: .75rem; opacity: .7; }
 
-    .card-tag {
-      font-size: 0.75rem;
-      color: var(--accent);
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-
-    .card h3 {
-      font-size: 1.15rem;
-      font-weight: 700;
-    }
-
-    .card p {
-      font-size: 0.9rem;
-      color: var(--muted);
-      flex: 1;
-    }
-
-    .card-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--accent);
-      margin-top: 0.5rem;
-      transition: gap 0.2s;
-    }
-    .card-link:hover { gap: 0.6rem; }
-    .card-link::after { content: '→'; }
-
-    /* ── Contact / Footer ── */
+    /* ── Footer / Contact ── */
     footer {
       background: var(--surface);
       border-top: 1px solid var(--border);
-      padding: 60px 0 40px;
-      text-align: center;
+      padding: 70px 0 40px;
     }
-
-    footer .section-title { display: block; text-align: left; }
-
-    .contact-links {
-      display: flex;
-      gap: 1.25rem;
-      flex-wrap: wrap;
-      margin-top: 1.75rem;
-      justify-content: center;
-    }
-
+    .footer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+    .contact-info p { color: var(--muted); margin-bottom: 1.5rem; }
+    .contact-chips { display: flex; flex-direction: column; gap: .75rem; }
     .contact-chip {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.6rem 1.4rem;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      transition: border-color 0.2s, color 0.2s;
+      display: flex; align-items: center; gap: .75rem;
+      padding: .75rem 1.25rem; border: 1px solid var(--border);
+      border-radius: 10px; font-size: .9rem; font-weight: 500;
+      transition: border-color .2s, color .2s, transform .15s;
     }
-    .contact-chip:hover { border-color: var(--accent); color: var(--accent); }
+    .contact-chip:hover { border-color: var(--accent); color: var(--accent); transform: translateX(4px); }
+    .contact-icon { font-size: 1.2rem; }
 
-    .contact-icon {
-      font-size: 1.1rem;
-      line-height: 1;
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: .35rem; }
+    .form-group label { font-size: .82rem; font-weight: 700; color: var(--muted); letter-spacing: .03em; }
+    .form-group input, .form-group textarea {
+      background: var(--bg); border: 1.5px solid var(--border);
+      border-radius: 8px; padding: .65rem .9rem;
+      color: var(--text); font-size: .95rem; font-family: inherit;
+      transition: border-color .2s, box-shadow .2s; outline: none; width: 100%;
     }
-
-    .footer-copy {
-      margin-top: 3rem;
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-
-    /* ── Contact Form ── */
-    .contact-form {
-      margin-top: 2.5rem;
-      padding-top: 2rem;
-      border-top: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-      text-align: left;
-      max-width: 560px;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-    }
-
-    .form-group label {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--muted);
-      letter-spacing: 0.03em;
-    }
-
-    .form-group input,
-    .form-group textarea {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 0.65rem 0.9rem;
-      color: var(--text);
-      font-size: 0.95rem;
-      font-family: inherit;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      outline: none;
-      width: 100%;
-    }
-
-    .form-group input:focus,
-    .form-group textarea:focus {
+    .form-group input:focus, .form-group textarea:focus {
       border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.15);
+      box-shadow: 0 0 0 3px rgba(108,99,255,.15);
+    }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: var(--muted); opacity: .6; }
+
+    .footer-bottom {
+      margin-top: 4rem; padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      text-align: center; font-size: .8rem; color: var(--muted);
     }
 
-    .form-group textarea {
-      resize: vertical;
-      min-height: 120px;
-    }
-
-    .form-group input::placeholder,
-    .form-group textarea::placeholder {
-      color: var(--muted);
-      opacity: 0.6;
-    }
+    /* ── Scroll reveal ── */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
 
     /* ── Responsive ── */
-    @media (max-width: 600px) {
+    @media (max-width: 768px) {
       .nav-links { display: none; }
-      .projects-grid { grid-template-columns: 1fr; }
-      #hero { padding: 70px 0 60px; }
+      #about .about-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .boggle-wrapper { grid-template-columns: 1fr; }
+      .boggle-cell { width: 60px; height: 60px; font-size: 1.2rem; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .boggle-cell { width: 52px; height: 52px; font-size: 1rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ── Header ── -->
-  <header>
-    <nav class="container">
-      <span class="nav-logo">신사임당.dev</span>
-      <ul class="nav-links">
-        <li><a href="#skills">기술 스택</a></li>
-        <li><a href="#projects">프로젝트</a></li>
-        <li><a href="#contact">연락처</a></li>
-      </ul>
-    </nav>
-  </header>
+<!-- ── Header ── -->
+<header>
+  <nav class="container">
+    <span class="nav-logo">신사임당.dev</span>
+    <ul class="nav-links">
+      <li><a href="#about">소개</a></li>
+      <li><a href="#skills">기술</a></li>
+      <li><a href="#timeline">경력</a></li>
+      <li><a href="#projects">프로젝트</a></li>
+      <li><a href="#boggle">보글게임</a></li>
+      <li><a href="#contact">연락처</a></li>
+    </ul>
+  </nav>
+</header>
 
-  <!-- ── Hero ── -->
-  <section id="hero">
-    <div class="avatar">👤</div>
-    <h1 class="hero-name">안녕하세요,<br /><span>신사임당</span>입니다.</h1>
-    <p class="hero-tagline">풀스택 개발자 · 코드로 문제를 풉니다</p>
-    <div class="hero-cta">
-      <a href="#projects" class="btn btn-primary">프로젝트 보기</a>
-      <a href="#contact" class="btn btn-outline">연락하기</a>
-    </div>
-  </section>
+<!-- ── Hero ── -->
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="avatar">🎨</div>
+  <h1 class="hero-name">안녕하세요,<br /><span class="gradient">신사임당</span>입니다.</h1>
+  <p class="hero-tagline">
+    <span id="typewriter" class="typewriter"></span>
+  </p>
+  <div class="hero-cta">
+    <a href="#projects" class="btn btn-primary">🚀 프로젝트 보기</a>
+    <a href="#contact"  class="btn btn-outline">✉ 연락하기</a>
+  </div>
+</section>
 
-  <!-- ── Skills ── -->
-  <section id="skills">
-    <div class="container">
-      <h2 class="section-title">기술 스택</h2>
-      <div class="badges">
-        <span class="badge">HTML / CSS</span>
-        <span class="badge">JavaScript</span>
-        <span class="badge">Python</span>
-        <span class="badge">React</span>
-        <span class="badge">Git</span>
+<!-- ── Stats ── -->
+<section id="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="reveal">
+        <div class="stat-num" data-target="5">0</div>
+        <div class="stat-label">년간 경력</div>
+      </div>
+      <div class="reveal">
+        <div class="stat-num" data-target="32">0</div>
+        <div class="stat-label">완료 프로젝트</div>
+      </div>
+      <div class="reveal">
+        <div class="stat-num" data-target="12">0</div>
+        <div class="stat-label">협업 클라이언트</div>
+      </div>
+      <div class="reveal">
+        <div class="stat-num" data-target="99">0</div>
+        <div class="stat-label">고객 만족도 %</div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ── Projects ── -->
-  <section id="projects">
-    <div class="container">
-      <h2 class="section-title">프로젝트</h2>
-      <div class="projects-grid">
-
-        <div class="card">
-          <span class="card-tag">Web App</span>
-          <h3>할 일 관리 앱</h3>
-          <p>React와 LocalStorage를 활용해 만든 투두 앱. 드래그 앤 드롭으로 순서를 변경할 수 있습니다.</p>
-          <a href="#" class="card-link">GitHub 보기</a>
+<!-- ── About ── -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <h2 class="section-title">소개</h2>
+        <p>안녕하세요! 저는 <strong>신사임당</strong>입니다. 사용자 경험을 최우선으로 생각하는 풀스택 개발자로, 아름답고 기능적인 웹 서비스를 만드는 것을 즐깁니다.</p>
+        <p>프론트엔드부터 백엔드, 데이터 분석까지 폭넓은 경험을 바탕으로 팀과 함께 가치 있는 제품을 만들어 나갑니다. 새로운 기술을 배우는 것을 두려워하지 않으며, 코드의 품질과 유지보수성을 중요하게 여깁니다.</p>
+        <div class="tag-list">
+          <span class="tag">☕ 커피 애호가</span>
+          <span class="tag">🎮 게임 개발</span>
+          <span class="tag">📚 독서</span>
+          <span class="tag">🌱 오픈소스</span>
         </div>
+      </div>
+      <div class="about-img reveal">🖥️</div>
+    </div>
+  </div>
+</section>
 
-        <div class="card">
-          <span class="card-tag">API</span>
-          <h3>날씨 대시보드</h3>
-          <p>OpenWeather API를 연동해 현재 위치 기반 날씨 정보를 시각화한 웹 서비스입니다.</p>
-          <a href="#" class="card-link">GitHub 보기</a>
-        </div>
-
-        <div class="card">
-          <span class="card-tag">Automation</span>
-          <h3>크롤링 파이프라인</h3>
-          <p>Python + BeautifulSoup으로 뉴스를 수집하고 CSV로 저장하는 자동화 스크립트입니다.</p>
-          <a href="#" class="card-link">GitHub 보기</a>
-        </div>
-
+<!-- ── Skills ── -->
+<section id="skills">
+  <div class="container">
+    <h2 class="section-title reveal">기술 스택</h2>
+    <div class="skills-grid reveal">
+      <div class="skill-item">
+        <div class="skill-header"><span>JavaScript / TypeScript</span><span>92%</span></div>
+        <div class="skill-bar"><div class="skill-fill" data-width="92"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span>React / Next.js</span><span>88%</span></div>
+        <div class="skill-bar"><div class="skill-fill" data-width="88"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span>Python</span><span>85%</span></div>
+        <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span>Node.js / Express</span><span>80%</span></div>
+        <div class="skill-bar"><div class="skill-fill" data-width="80"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span>SQL / PostgreSQL</span><span>75%</span></div>
+        <div class="skill-bar"><div class="skill-fill" data-width="75"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span>Docker / AWS</span><span>70%</span></div>
+        <div class="skill-bar"><div class="skill-fill" data-width="70"></div></div>
       </div>
     </div>
-  </section>
+    <div class="badge-grid reveal">
+      <span class="badge">HTML5</span><span class="badge">CSS3</span>
+      <span class="badge">Tailwind</span><span class="badge">Vue.js</span>
+      <span class="badge">GraphQL</span><span class="badge">Redis</span>
+      <span class="badge">MongoDB</span><span class="badge">Git</span>
+      <span class="badge">Figma</span><span class="badge">Linux</span>
+      <span class="badge">CI/CD</span><span class="badge">Webpack</span>
+    </div>
+  </div>
+</section>
 
-  <!-- ── Contact / Footer ── -->
-  <footer id="contact">
-    <div class="container">
-      <h2 class="section-title" style="display:inline-block;">연락처</h2>
-      <p style="color:var(--muted); margin-top:1rem;">
-        새로운 기회나 협업 제안은 언제든 환영합니다.
-      </p>
-      <div class="contact-links">
-        <a href="mailto:hong@example.com" class="contact-chip">
-          <span class="contact-icon">✉</span>
-          hong@example.com
-        </a>
-        <a href="https://github.com/hong" target="_blank" rel="noopener" class="contact-chip">
-          <span class="contact-icon">⌥</span>
-          github.com/hong
-        </a>
+<!-- ── Timeline ── -->
+<section id="timeline">
+  <div class="container">
+    <h2 class="section-title reveal">경력</h2>
+    <div class="tl reveal">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2023 – 현재</div>
+        <div class="tl-title">시니어 풀스택 개발자</div>
+        <div class="tl-sub">테크스타트업 (주)우리기술 · React, Node.js, PostgreSQL</div>
       </div>
-      <form
-        class="contact-form"
-        action="mailto:hong@example.com"
-        method="post"
-        enctype="text/plain"
-      >
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2021 – 2023</div>
+        <div class="tl-title">프론트엔드 개발자</div>
+        <div class="tl-sub">디자인에이전시 픽셀하우스 · Vue.js, CSS Animation</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2020 – 2021</div>
+        <div class="tl-title">주니어 개발자</div>
+        <div class="tl-sub">스타트업 부트캠프 수료 후 첫 취업 · Python, Django</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-year">2016 – 2020</div>
+        <div class="tl-title">컴퓨터공학 학사</div>
+        <div class="tl-sub">한국대학교 · 졸업 논문: 딥러닝 기반 이미지 분류</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Projects ── -->
+<section id="projects">
+  <div class="container">
+    <h2 class="section-title reveal">프로젝트</h2>
+    <div class="projects-grid">
+      <div class="card reveal">
+        <div class="card-icon">🛒</div>
+        <span class="card-tag">E-Commerce</span>
+        <h3>쇼핑몰 풀스택</h3>
+        <p>Next.js와 Stripe 결제를 연동한 완성도 높은 쇼핑몰. 재고 관리·실시간 알림·관리자 대시보드 포함.</p>
+        <div class="card-techs">
+          <span class="card-tech">Next.js</span>
+          <span class="card-tech">PostgreSQL</span>
+          <span class="card-tech">Stripe</span>
+        </div>
+        <a href="#" class="card-link">GitHub 보기</a>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">🤖</div>
+        <span class="card-tag">AI / ML</span>
+        <h3>AI 이미지 분류기</h3>
+        <p>PyTorch로 학습한 CNN 모델을 FastAPI로 서빙. 드래그앤드롭 업로드 후 실시간 분류 결과 표시.</p>
+        <div class="card-techs">
+          <span class="card-tech">Python</span>
+          <span class="card-tech">PyTorch</span>
+          <span class="card-tech">FastAPI</span>
+        </div>
+        <a href="#" class="card-link">GitHub 보기</a>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">📊</div>
+        <span class="card-tag">Dashboard</span>
+        <h3>실시간 데이터 대시보드</h3>
+        <p>WebSocket으로 주식·날씨·뉴스 데이터를 실시간 시각화. D3.js 차트와 다크모드 지원.</p>
+        <div class="card-techs">
+          <span class="card-tech">React</span>
+          <span class="card-tech">D3.js</span>
+          <span class="card-tech">WebSocket</span>
+        </div>
+        <a href="#" class="card-link">GitHub 보기</a>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">🎮</div>
+        <span class="card-tag">Game</span>
+        <h3>멀티플레이어 퍼즐</h3>
+        <p>Socket.io 기반 실시간 2인 협력 퍼즐 게임. 방 생성·채팅·랭킹 시스템 구현.</p>
+        <div class="card-techs">
+          <span class="card-tech">Node.js</span>
+          <span class="card-tech">Socket.io</span>
+          <span class="card-tech">Canvas</span>
+        </div>
+        <a href="#" class="card-link">GitHub 보기</a>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">🔐</div>
+        <span class="card-tag">Security</span>
+        <h3>OAuth 인증 시스템</h3>
+        <p>Google·GitHub·Kakao OAuth를 통합한 인증 모듈. JWT 리프레시 토큰·2FA 지원.</p>
+        <div class="card-techs">
+          <span class="card-tech">Node.js</span>
+          <span class="card-tech">JWT</span>
+          <span class="card-tech">Redis</span>
+        </div>
+        <a href="#" class="card-link">GitHub 보기</a>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">🕷️</div>
+        <span class="card-tag">Automation</span>
+        <h3>뉴스 크롤링 파이프라인</h3>
+        <p>Python + BeautifulSoup 기반 뉴스 수집 자동화. Airflow 스케줄링·Elasticsearch 색인 연동.</p>
+        <div class="card-techs">
+          <span class="card-tech">Python</span>
+          <span class="card-tech">Airflow</span>
+          <span class="card-tech">ES</span>
+        </div>
+        <a href="#" class="card-link">GitHub 보기</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Boggle ── -->
+<section id="boggle" style="background:var(--surface);">
+  <div class="container">
+    <h2 class="section-title reveal">보글보글 게임</h2>
+    <p style="color:var(--muted);margin-bottom:1.5rem;" class="reveal">격자 안의 인접한 글자를 이어서 단어를 완성하세요! (대각선도 OK)</p>
+    <div class="boggle-wrapper reveal">
+      <!-- Left: board -->
+      <div class="boggle-left">
+        <div class="boggle-header">
+          <div class="boggle-stat">
+            <div class="boggle-stat-val" id="boggle-score">0</div>
+            <div class="boggle-stat-lbl">점수</div>
+          </div>
+          <div class="boggle-stat">
+            <div class="boggle-stat-val" id="boggle-timer">3:00</div>
+            <div class="boggle-stat-lbl">남은 시간</div>
+          </div>
+          <div class="boggle-stat">
+            <div class="boggle-stat-val" id="boggle-found-count">0</div>
+            <div class="boggle-stat-lbl">찾은 단어</div>
+          </div>
+          <button class="btn-boggle" id="btn-new">🔄 새 게임</button>
+        </div>
+
+        <div class="boggle-grid" id="boggle-grid"></div>
+
+        <div class="boggle-input-row">
+          <div id="boggle-word-display">—</div>
+          <button class="btn-boggle" id="btn-submit">✓ 제출</button>
+          <button class="btn-boggle" id="btn-clear">✕ 취소</button>
+        </div>
+        <div class="boggle-msg" id="boggle-msg"></div>
+        <div style="font-size:.8rem;color:var(--muted);">
+          💡 3글자 이상 영단어 · 인접 칸만 연결 가능 · 같은 칸 재사용 불가
+        </div>
+      </div>
+
+      <!-- Right: found words -->
+      <div class="boggle-right">
+        <h3>찾은 단어 <span id="found-count-label"></span></h3>
+        <div id="found-list"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Contact / Footer ── -->
+<footer id="contact">
+  <div class="container">
+    <h2 class="section-title reveal">연락처</h2>
+    <div class="footer-grid">
+      <div class="contact-info reveal">
+        <p>새로운 기회나 협업 제안은 언제든 환영합니다.<br />아래 채널로 편하게 연락 주세요.</p>
+        <div class="contact-chips">
+          <a href="mailto:saimdang@example.com" class="contact-chip">
+            <span class="contact-icon">✉</span> saimdang@example.com
+          </a>
+          <a href="https://github.com/saimdang" target="_blank" rel="noopener" class="contact-chip">
+            <span class="contact-icon">🐙</span> github.com/saimdang
+          </a>
+          <a href="#" class="contact-chip">
+            <span class="contact-icon">💼</span> LinkedIn
+          </a>
+        </div>
+      </div>
+      <form class="contact-form reveal" action="mailto:saimdang@example.com" method="post" enctype="text/plain">
         <div class="form-group">
           <label for="name">이름</label>
           <input type="text" id="name" name="이름" placeholder="신사임당" required />
@@ -449,12 +707,420 @@
           <label for="message">메시지</label>
           <textarea id="message" name="메시지" placeholder="안녕하세요, 협업 제안이 있습니다..." required></textarea>
         </div>
-        <button type="submit" class="btn btn-primary" style="align-self:flex-start;">문의 보내기</button>
+        <button type="submit" class="btn btn-primary" style="align-self:flex-start;">문의 보내기 →</button>
       </form>
-
-      <p class="footer-copy">© 2026 신사임당. All rights reserved.</p>
     </div>
-  </footer>
+    <div class="footer-bottom">© 2026 신사임당. All rights reserved. · Made with ❤️ & JavaScript</div>
+  </div>
+</footer>
 
+<script>
+/* ══════════════════════════════════════
+   Hero Canvas – floating particles
+══════════════════════════════════════ */
+(function() {
+  const canvas = document.getElementById('hero-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
+
+  function resize() {
+    W = canvas.width  = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  class Particle {
+    constructor() { this.reset(); }
+    reset() {
+      this.x = Math.random() * W;
+      this.y = Math.random() * H;
+      this.r = Math.random() * 2 + .5;
+      this.vx = (Math.random() - .5) * .4;
+      this.vy = (Math.random() - .5) * .4;
+      this.alpha = Math.random() * .5 + .1;
+      const hues = [265, 310, 45];
+      this.hue = hues[Math.floor(Math.random() * hues.length)];
+    }
+    update() {
+      this.x += this.vx; this.y += this.vy;
+      if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+      ctx.fillStyle = `hsla(${this.hue},80%,70%,${this.alpha})`;
+      ctx.fill();
+    }
+  }
+
+  for (let i = 0; i < 120; i++) particles.push(new Particle());
+
+  function loop() {
+    ctx.clearRect(0, 0, W, H);
+    // draw connections
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const d = Math.sqrt(dx*dx + dy*dy);
+        if (d < 100) {
+          ctx.beginPath();
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.strokeStyle = `rgba(108,99,255,${.15 * (1 - d/100)})`;
+          ctx.lineWidth = .5;
+          ctx.stroke();
+        }
+      }
+    }
+    particles.forEach(p => { p.update(); p.draw(); });
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+
+/* ══════════════════════════════════════
+   Typewriter
+══════════════════════════════════════ */
+(function() {
+  const el = document.getElementById('typewriter');
+  const lines = ['풀스택 개발자', 'UI/UX 애호가', '오픈소스 기여자', '커피 3잔 ☕ / 일'];
+  let li = 0, ci = 0, deleting = false;
+
+  function tick() {
+    const txt = lines[li];
+    if (!deleting) {
+      el.textContent = txt.slice(0, ++ci);
+      if (ci === txt.length) { deleting = true; setTimeout(tick, 1800); return; }
+    } else {
+      el.textContent = txt.slice(0, --ci);
+      if (ci === 0) { deleting = false; li = (li + 1) % lines.length; }
+    }
+    setTimeout(tick, deleting ? 60 : 100);
+  }
+  tick();
+})();
+
+/* ══════════════════════════════════════
+   Scroll reveal + counter + skill bars
+══════════════════════════════════════ */
+(function() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('visible');
+
+      // counter
+      const num = e.target.querySelector('[data-target]');
+      if (num) {
+        const target = +num.dataset.target;
+        let cur = 0;
+        const step = Math.ceil(target / 40);
+        const iv = setInterval(() => {
+          cur = Math.min(cur + step, target);
+          num.textContent = cur;
+          if (cur >= target) clearInterval(iv);
+        }, 30);
+      }
+
+      // skill bars
+      e.target.querySelectorAll('.skill-fill').forEach(bar => {
+        bar.style.width = bar.dataset.width + '%';
+      });
+
+      obs.unobserve(e.target);
+    });
+  }, { threshold: .15 });
+
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+})();
+
+/* ══════════════════════════════════════
+   BOGGLE GAME
+══════════════════════════════════════ */
+(function() {
+  // ── Word list ──
+  const WORDS = new Set([
+    'ace','act','add','age','ago','aid','aim','air','ale','ant','ape','arc','are','ark','arm','art','ash','ask','ate','awe','axe','aye',
+    'bad','bag','ban','bar','bat','bay','bed','bet','bid','big','bit','bog','bow','box','boy','bud','bug','bun','bus','but','buy','bye',
+    'cab','can','cap','car','cat','cob','cod','cog','cop','cot','cow','cry','cub','cup','cut',
+    'dab','dad','dam','day','den','dew','dig','dim','dip','dog','dot','dry','dub','dug','duo','dye',
+    'ear','eat','egg','ego','elf','elm','end','era','eve','ewe','eye',
+    'fad','fan','far','fat','fed','few','fig','fin','fit','fix','fly','foe','fog','fox','fry','fun','fur',
+    'gap','gas','gem','get','gin','god','got','gum','gun','gut','guy',
+    'had','ham','has','hat','hay','hem','hen','her','hew','hid','him','hip','his','hit','hog','hop','hot','how','hub','hue','hug','hum','hut',
+    'ice','ill','inn','ion','ivy',
+    'jab','jam','jar','jaw','jet','jig','job','jot','joy','jug',
+    'keg','key','kid','kin','kit',
+    'lab','lag','lap','law','lax','lay','led','leg','let','lid','lip','lit','log','lot','low','lug',
+    'mad','man','map','mar','mat','men','met','mob','mop','mud','mug',
+    'nab','nag','nap','net','nit','nod','not','now','nun','nut',
+    'oak','oar','oat','odd','off','oil','old','opt','orb','ore','our','out','owe','owl','own',
+    'pad','pan','par','pat','paw','pay','pea','peg','pen','pet','pie','pig','pin','pit','pod','pot','pub','pun','put',
+    'rag','ram','ran','rap','rat','raw','ray','red','rid','rig','rim','rip','rob','rod','rot','row','rub','rug','rum','run','rut','rye',
+    'sad','sag','sap','sat','saw','say','sea','set','sew','sin','sip','sir','sit','ski','sob','sod','son','sow','spa','sub','sum','sun',
+    'tab','tan','tap','tar','tea','ten','tie','tin','tip','toe','ton','top','toy','try','tub','tug','two',
+    'urn','use','van','vat','vie','vow',
+    'wag','war','was','wax','web','wed','wet','wig','win','wit','woe','wok','won','woo',
+    'yam','yaw','yew','yip','you','zap','zip','zoo',
+    // 4-letter
+    'able','acid','aged','also','area','army','away',
+    'back','bake','ball','band','bank','bare','bark','barn','base','bath','bead','beam','bean','bear','beat','been','bell','belt','bend','best','bike','bill','bind','bird','bite','blow','blue','boat','body','bold','bolt','bone','book','boom','boot','bore','born','both','bulk','bull','burn',
+    'cafe','cage','cake','call','calm','came','cane','cape','care','cart','case','cash','cast','cave','cell','chip','chop','coal','coat','code','coil','cold','come','cone','cook','cool','cope','cord','core','corn','cost','cove','crew','crop','cure','curl','cute',
+    'dale','dame','dare','dark','dart','dash','data','date','dawn','dead','deal','dean','dear','debt','deed','deep','deer','dent','desk','diet','dire','dirt','disk','dive','dock','done','door','dose','dove','down','draw','drip','drop','drum','dual','dull','dump','dusk','dust','duty',
+    'each','earl','earn','ease','east','easy','edge','else','emit','epic','even','ever','evil','exam','exit',
+    'face','fact','fade','fail','fair','fake','fall','fame','fare','farm','fast','fate','feat','feel','feet','fell','felt','file','fill','film','find','fine','fire','firm','fish','fist','flag','flat','flaw','fled','flew','flip','flow','foam','fold','folk','fond','food','foot','ford','fore','fork','form','fort','foul','four','free','fuel','full','fume','fund','fuse',
+    'gale','game','gang','gate','gave','gaze','gear','gift','girl','give','glad','glow','glue','goal','gold','golf','gone','good','gore','gown','grab','gram','gray','grew','grin','grip','grow','gulf','gust',
+    'hack','hail','half','hall','halt','hand','hang','hard','harm','hate','haul','have','hawk','head','heal','heap','heat','heel','held','help','herb','hero','hide','high','hill','hire','hold','hole','home','hood','horn','host','hour','huge','hull','hung','hunt','hurt',
+    'icon','idea','idle','inch','iron','isle','item',
+    'jail','jazz','jerk','join','joke','jolt','jump','just',
+    'keen','keep','kill','kind','king','knee','knew','knot','know',
+    'lack','lady','lake','land','lane','last','late','lawn','lead','leaf','lean','leap','left','lend','lens','lick','life','lift','like','lime','line','link','lion','list','live','load','loan','lock','loft','lone','long','look','loom','loop','lord','lore','lose','loss','lost','loud','love','luck','lull','lump','lure','lurk','lust',
+    'made','mail','main','make','male','mall','mane','many','mark','mask','mass','mast','maze','meal','mean','meat','melt','memo','menu','mere','mesh','mile','milk','mill','mind','mine','mint','miss','mist','mode','mold','mole','mood','moon','more','most','move','much','mule','must','myth',
+    'nail','name','navy','near','neck','need','nest','news','next','nice','nine','node','none','nook','noon','norm','nose','note','numb',
+    'once','only','open','oral','oval','oven','over','pace','pack','page','paid','pain','pair','pale','palm','park','part','pass','past','path','pave','peak','peel','peer','pelt','pile','pine','pink','pipe','plan','play','plea','plot','plow','plug','plum','plus','poem','poet','pole','poll','pond','pool','poor','pore','pork','port','pose','post','pour','prey','prop','pull','pump','pure','push',
+    'race','rack','raid','rail','rain','rake','ramp','rank','rant','rare','rash','rate','read','real','reap','reel','rely','rent','rest','rice','rich','ride','ring','riot','rise','risk','road','roam','roar','robe','rock','rode','role','roll','roof','room','root','rope','rose','rout','rude','ruin','rule','rush','rust',
+    'safe','sage','sake','salt','same','sand','sane','sang','sank','save','scan','scar','seal','seam','seat','seed','seek','seem','seen','self','sell','send','sent','shed','shin','ship','shop','shot','show','shut','sick','side','sigh','sign','silk','sill','sing','sink','size','skin','slab','slam','slap','slay','sled','slim','slip','slot','slow','slug','slum','snap','snow','soak','soar','sock','soft','soil','sold','sole','some','song','soot','sore','sort','soul','soup','sour','span','spar','spin','spit','spot','stab','star','stay','step','stem','stew','stir','stop','stub','stud','such','suit','sung','sunk','sure','surf','swam','swap','sway','swim',
+    'tail','tale','talk','tall','tank','tape','task','team','tear','tell','tend','tent','term','tick','tide','tilt','time','tiny','tire','toad','told','toll','tomb','tone','took','tool','tore','torn','toss','tour','town','trap','tray','tree','trek','trim','trip','true','tube','tune','turf','turn','tusk','twin','type',
+    'ugly','undo','upon','urge','used','user','vale','vary','veil','vein','very','vest','view','vine','void','volt','vote',
+    'wade','wage','wake','walk','wall','wand','want','ward','warm','warp','wary','wash','wave','weak','wean','wear','weed','week','well','welt','went','were','wide','wife','wild','will','wilt','wind','wine','wing','wink','wire','wise','wish','wolf','wood','wool','word','wore','work','worm','worn','wren',
+    'yard','yarn','yell','your','zeal','zero','zone','zoom',
+    // 5-letter
+    'about','above','abuse','actor','acute','admit','adopt','adult','after','again','agent','agree','ahead','alarm','album','alert','alike','align','alive','alley','allow','alone','along','alter','angel','anger','angle','angry','ankle',
+    'apple','apply','arena','argue','arise','armor','aroma','arose','array','arrow','aside','attic','audio','audit','avoid','awake','award','aware','awful',
+    'badly','baker','basic','basis','batch','beach','began','begin','being','below','bench','birth','black','blade','blame','bland','blank','blaze','bleed','blend','bless','blind','block','blood','bloom','blown','board','bonus','bound','boxer','brain','brand','brave','bread','break','breed','brick','bride','brief','bring','broad','broke','brook','broom','brown','brush','built','bunch','burst','buyer',
+    'cabin','cable','candy','cargo','carry','carve','cause','chain','chair','chalk','chant','chaos','charm','chart','chase','cheap','check','cheek','cheer','chess','chest','chief','child','choir','chord','civic','civil','claim','clash','class','clean','clear','clerk','click','cliff','climb','cling','clock','close','cloud','coach','coast','comet','comic','comma','count','court','cover','craft','crane','crash','crawl','crazy','cream','creek','crime','crisp','cross','crowd','crown','crush','crust','curve','cycle',
+    'daily','dance','death','debut','decoy','delay','demon','dense','depot','depth','disco','dizzy','dodge','doubt','dough','draft','drain','drama','drank','dread','dream','dress','drift','drink','drive','drove','drown','drunk','dying',
+    'eagle','early','earth','eight','elite','ember','empty','enemy','enjoy','enter','entry','equal','error','essay','event','every','exact','extra',
+    'fable','fairy','faith','false','fancy','fatal','feast','fence','ferry','fever','fiber','field','fight','final','first','fixed','flame','flash','flask','flock','flood','floor','flour','flush','force','forge','forth','found','frame','frank','fraud','fresh','front','frost','fruit','fully','funny',
+    'ghost','given','glare','glass','globe','gloom','glory','gloss','glove','going','grace','grade','grain','grand','grant','grape','grasp','grass','grave','graze','great','green','greet','grief','grind','groan','groin','groom','gross','group','grove','grown','guard','guess','guide','guild','guile','guise','gusto',
+    'habit','handy','happy','harsh','haunt','haven','heart','heavy','hence','hinge','honey','honor','horse','hotel','hound','human','humid','humor','hurry',
+    'ideal','image','imply','index','infer','inner','input','inter','intro','issue','ivory',
+    'jewel','joker','juice','juicy','jumpy','knife','knock','known',
+    'label','large','laser','laugh','layer','learn','lease','least','leave','legal','lemon','level','light','limit','linen','liner','liver','lobby','local','lodge','logic','loose','lower','loyal','lucky','lunch','lying',
+    'magic','major','maker','manor','maple','march','marry','match','mayor','media','melon','mercy','merge','merit','metal','meter','might','minor','minus','mirth','model','money','month','moral','motor','motto','mount','mouse','mouth','moved','movie','muddy','music',
+    'naive','nasty','nerve','never','night','ninja','noble','noise','north','noted','novel','nurse',
+    'occur','ocean','offer','often','onset','orbit','order','other','outer','owned','owner','oxide','ozone',
+    'panda','panel','paper','party','pasta','patch','pause','peace','peach','pearl','penny','perch','phase','phone','photo','piano','piece','pilot','pinch','pixel','pizza','place','plain','plane','plant','plate','plaza','plead','pluck','plume','point','polar','pouch','pound','power','press','price','pride','prime','print','prior','prize','probe','prone','proof','prose','proud','prove','pupil','purse',
+    'queen','quest','queue','quick','quiet','quota','quote',
+    'radar','radio','raise','rally','ranch','range','rapid','reach','realm','rebel','refer','reign','relax','renew','repay','rider','ridge','right','rigid','risky','river','robin','robot','rocky','rough','round','route','royal','rugby','ruler','rural',
+    'salad','salon','sauce','scale','scare','scene','scent','scope','score','scout','screw','sense','serve','seven','shade','shaft','shake','shame','shape','share','shark','sharp','sheep','sheer','sheet','shelf','shell','shift','shine','shirt','shock','shoot','shore','short','shout','sight','silly','since','sixth','sixty','skill','skirt','slave','sleep','slice','slide','slope','smile','smash','smell','smoke','solid','solve','south','space','spare','spark','speak','spear','speed','spend','spent','spill','spine','spoke','spoon','sport','spray','stack','staff','stage','stain','stale','stall','stamp','stand','stare','start','state','steal','steam','steel','steep','steer','stick','stiff','still','sting','stock','stone','stood','store','storm','story','stove','strap','straw','stray','strip','stuck','study','stuff','stump','stung','stunt','style','sugar','suite','super','surge','swamp','swear','sweat','sweep','sweet','swept','swift','sword','swore','sworn','syrup',
+    'table','talon','tangy','taste','teach','tense','thank','theme','there','thick','thing','think','third','thorn','those','three','threw','throw','thumb','tiger','tight','timer','tired','title','today','token','torch','total','touch','tough','tower','toxic','track','trade','trail','train','trait','trash','tread','trend','trial','tribe','trick','tried','troop','trout','truck','truly','trunk','trust','truth','tumor','tuner','twice','twist','tying',
+    'ultra','uncle','under','unify','union','unity','until','upper','upset','urban','usage','usual','utter',
+    'valid','value','valve','video','vigor','viral','virus','visit','vista','vital','vivid','vocal','voice','voter',
+    'waist','waste','watch','water','weave','weigh','weird','whale','wheat','wheel','where','while','white','whole','whose','wider','witch','woman','women','world','worry','worse','worst','worth','would','wound','wrath','wrist','write','wrote',
+    'yacht','young','yours','youth','zebra',
+  ]);
+
+  // ── Letter weights ──
+  const LETTERS = 'AAAAAAAAABBCCDDDDEEEEEEEEEEEEFFGGGHHIIIIIIIIIJKLLLLMMNNNNNNOOOOOOOOPPQRRRRRRSSSSSSTTTTTTTTTUUUUVVWWXYYZ'.split('');
+
+  let grid = [], selected = [], foundWords = new Set(), score = 0;
+  let timerInterval = null, secondsLeft = 180, gameActive = false;
+
+  const gridEl    = document.getElementById('boggle-grid');
+  const wordDisp  = document.getElementById('boggle-word-display');
+  const msgEl     = document.getElementById('boggle-msg');
+  const scoreEl   = document.getElementById('boggle-score');
+  const timerEl   = document.getElementById('boggle-timer');
+  const foundCountEl = document.getElementById('boggle-found-count');
+  const foundListEl  = document.getElementById('found-list');
+
+  function wordScore(w) {
+    if (w.length <= 4) return 1;
+    if (w.length === 5) return 2;
+    if (w.length === 6) return 3;
+    if (w.length === 7) return 5;
+    return 8;
+  }
+
+  function newGame() {
+    clearInterval(timerInterval);
+    secondsLeft = 180;
+    score = 0;
+    foundWords.clear();
+    selected = [];
+    gameActive = true;
+
+    // Generate grid
+    grid = Array.from({length: 16}, () => LETTERS[Math.floor(Math.random() * LETTERS.length)]);
+
+    // Ensure at least 4 vowels
+    const vowels = 'AEIOU';
+    let vowelCount = grid.filter(l => vowels.includes(l)).length;
+    while (vowelCount < 4) {
+      const idx = Math.floor(Math.random() * 16);
+      if (!vowels.includes(grid[idx])) {
+        grid[idx] = vowels[Math.floor(Math.random() * vowels.length)];
+        vowelCount++;
+      }
+    }
+
+    renderGrid();
+    updateDisplay();
+    clearFound();
+
+    scoreEl.textContent = '0';
+    foundCountEl.textContent = '0';
+    timerEl.classList.remove('danger');
+    updateTimer();
+
+    timerInterval = setInterval(() => {
+      secondsLeft--;
+      updateTimer();
+      if (secondsLeft <= 0) endGame();
+    }, 1000);
+
+    setMsg('', '');
+  }
+
+  function updateTimer() {
+    const m = Math.floor(secondsLeft / 60);
+    const s = secondsLeft % 60;
+    timerEl.textContent = `${m}:${s.toString().padStart(2, '0')}`;
+    if (secondsLeft <= 30) timerEl.classList.add('danger');
+  }
+
+  function endGame() {
+    clearInterval(timerInterval);
+    gameActive = false;
+    setMsg(`⏰ 게임 종료! 최종 점수: ${score}점 (${foundWords.size}단어)`, '#fbbf24');
+    wordDisp.textContent = '—';
+    wordDisp.className = '';
+  }
+
+  function renderGrid() {
+    gridEl.innerHTML = '';
+    grid.forEach((letter, i) => {
+      const cell = document.createElement('div');
+      cell.className = 'boggle-cell';
+      cell.textContent = letter;
+      cell.dataset.idx = i;
+      cell.addEventListener('click', () => onCellClick(i));
+      gridEl.appendChild(cell);
+    });
+  }
+
+  function getCells() { return gridEl.querySelectorAll('.boggle-cell'); }
+
+  function onCellClick(idx) {
+    if (!gameActive) return;
+
+    // If already selected: allow backtrack to previous step
+    const pos = selected.indexOf(idx);
+    if (pos !== -1) {
+      if (pos === selected.length - 2) {
+        // click second-to-last = remove last
+        selected.pop();
+      } else if (pos === 0 && selected.length === 1) {
+        selected = [];
+      } else {
+        // clicking earlier = reset to that point
+        selected = selected.slice(0, pos + 1);
+      }
+      updateCells();
+      updateWordDisplay();
+      return;
+    }
+
+    // Must be adjacent to last selected
+    if (selected.length > 0) {
+      if (!isAdjacent(selected[selected.length - 1], idx)) {
+        setMsg('인접한 칸만 선택할 수 있어요!', '#ef4444');
+        setTimeout(() => setMsg('', ''), 1000);
+        return;
+      }
+    }
+
+    selected.push(idx);
+    updateCells();
+    updateWordDisplay();
+  }
+
+  function isAdjacent(a, b) {
+    const ar = Math.floor(a / 4), ac = a % 4;
+    const br = Math.floor(b / 4), bc = b % 4;
+    return Math.abs(ar - br) <= 1 && Math.abs(ac - bc) <= 1 && a !== b;
+  }
+
+  function updateCells() {
+    const cells = getCells();
+    cells.forEach((c, i) => {
+      c.className = 'boggle-cell';
+      const pos = selected.indexOf(i);
+      if (pos === selected.length - 1 && pos >= 0) c.classList.add('selected');
+      else if (pos >= 0) c.classList.add('path');
+    });
+  }
+
+  function updateWordDisplay() {
+    const word = selected.map(i => grid[i]).join('');
+    wordDisp.textContent = word || '—';
+    wordDisp.className = '';
+    if (word.length >= 3) {
+      if (foundWords.has(word.toLowerCase())) wordDisp.classList.add('invalid');
+      else if (WORDS.has(word.toLowerCase())) wordDisp.classList.add('valid');
+    }
+  }
+
+  function submitWord() {
+    if (!gameActive) return;
+    const word = selected.map(i => grid[i]).join('').toLowerCase();
+    if (word.length < 3) { setMsg('3글자 이상 입력하세요.', '#ef4444'); return; }
+    if (foundWords.has(word)) { setMsg('이미 찾은 단어예요!', '#fbbf24'); clearSelection(); return; }
+    if (!WORDS.has(word)) { setMsg(`"${word.toUpperCase()}" - 없는 단어예요.`, '#ef4444'); clearSelection(); return; }
+
+    // valid!
+    const pts = wordScore(word);
+    score += pts;
+    foundWords.add(word);
+
+    // flash
+    selected.forEach(i => {
+      const cell = getCells()[i];
+      cell.classList.remove('selected','path');
+      cell.classList.add('found-flash');
+      setTimeout(() => cell.classList.remove('found-flash'), 600);
+    });
+
+    addFoundWord(word, pts);
+    setMsg(`✅ "${word.toUpperCase()}" +${pts}점!`, 'var(--green)');
+    scoreEl.textContent = score;
+    foundCountEl.textContent = foundWords.size;
+    clearSelection();
+  }
+
+  function addFoundWord(word, pts) {
+    const div = document.createElement('div');
+    div.className = 'found-word';
+    div.innerHTML = `<span>${word.toUpperCase()}</span><span class="pts">+${pts}pt</span>`;
+    foundListEl.prepend(div);
+  }
+
+  function clearFound() { foundListEl.innerHTML = ''; }
+
+  function clearSelection() {
+    selected = [];
+    updateCells();
+    wordDisp.textContent = '—';
+    wordDisp.className = '';
+  }
+
+  function updateDisplay() {}
+
+  function setMsg(txt, color) {
+    msgEl.textContent = txt;
+    msgEl.style.color = color;
+  }
+
+  document.getElementById('btn-submit').addEventListener('click', submitWord);
+  document.getElementById('btn-clear').addEventListener('click', clearSelection);
+  document.getElementById('btn-new').addEventListener('click', newGame);
+
+  // Also submit on Enter key... but no keyboard input needed; click-based
+  newGame();
+})();
+</script>
 </body>
 </html>
