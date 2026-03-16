@@ -280,6 +280,62 @@
       color: var(--muted);
     }
 
+    /* ── Contact Form ── */
+    .contact-form {
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      text-align: left;
+      max-width: 560px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-group label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 0.03em;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.65rem 0.9rem;
+      color: var(--text);
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+      width: 100%;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.15);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: var(--muted);
+      opacity: 0.6;
+    }
+
     /* ── Responsive ── */
     @media (max-width: 600px) {
       .nav-links { display: none; }
@@ -375,6 +431,27 @@
           github.com/hong
         </a>
       </div>
+      <form
+        class="contact-form"
+        action="mailto:hong@example.com"
+        method="post"
+        enctype="text/plain"
+      >
+        <div class="form-group">
+          <label for="name">이름</label>
+          <input type="text" id="name" name="이름" placeholder="홍길동" required />
+        </div>
+        <div class="form-group">
+          <label for="email">이메일</label>
+          <input type="email" id="email" name="이메일" placeholder="you@example.com" required />
+        </div>
+        <div class="form-group">
+          <label for="message">메시지</label>
+          <textarea id="message" name="메시지" placeholder="안녕하세요, 협업 제안이 있습니다..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="align-self:flex-start;">문의 보내기</button>
+      </form>
+
       <p class="footer-copy">© 2026 홍길동. All rights reserved.</p>
     </div>
   </footer>
